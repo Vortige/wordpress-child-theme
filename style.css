@@ -20,8 +20,10 @@ Author:             svenk
      max-height: calc(100vh - 20px) !important;
      overflow-y: auto !important;
      overflow-x: hidden !important;
+     overscroll-behavior: contain;
+     touch-action: pan-y;
      -webkit-overflow-scrolling: touch;
-}
+ }
  .boxzilla .boxzilla-content {
      padding: 0 !important;
      background: transparent !important;

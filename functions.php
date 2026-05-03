@@ -16,4 +16,12 @@ add_action( 'wp_enqueue_scripts', function () {
         wp_get_theme()->get( 'Version' )
     );
 
+    wp_enqueue_script(
+        'jkd-boxzilla-scroll-fix',
+        get_stylesheet_directory_uri() . '/boxzilla-scroll-fix.js',
+        [],
+        wp_get_theme()->get( 'Version' ),
+        true
+    );
+
 }, 20);
