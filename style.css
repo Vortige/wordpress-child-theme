@@ -17,11 +17,14 @@ Author:             svenk
      padding: 0 !important;
      width: min(1280px, calc(100vw - 40px)) !important;
      max-width: 1280px !important;
-     max-height: 800px !important;
+     max-height: min(800px, calc(100vh - 20px)) !important;
+     overflow-y: auto !important;
+     -webkit-overflow-scrolling: touch;
 }
  .boxzilla .boxzilla-content {
      padding: 0 !important;
      background: transparent !important;
+     max-height: inherit;
 }
 /* Vorhandenes Boxzilla Close-Icon */
  .boxzilla .boxzilla-close-icon, .boxzilla .boxzilla-close {
@@ -49,6 +52,7 @@ Author:             svenk
 /* ========================= MODAL WRAPPER ========================= */
  .boxzilla .vz-modal {
      border-radius: 22px;
+     max-height: inherit;
      overflow-y: auto;
      -webkit-overflow-scrolling: touch;
      border: 1px solid rgba(255,255,255,0.10);
@@ -148,8 +152,9 @@ Author:             svenk
 /* Iframe-Scrollbarkeit erzwingen */
  .boxzilla .vz-modal__form iframe {
      width: 100% !important;
-     height: 100% !important;
-     min-height: 600px;
+     height: min(820px, calc(100vh - 170px)) !important;
+     max-height: calc(100vh - 170px) !important;
+     min-height: 520px;
      border: 0 !important;
      overflow: auto !important;
      -webkit-overflow-scrolling: touch !important;
@@ -211,6 +216,11 @@ Author:             svenk
     }
      .boxzilla .vz-modal__form {
          padding: 22px 16px 18px;
+    }
+     .boxzilla .vz-modal__form iframe {
+         height: calc(100vh - 240px) !important;
+         max-height: calc(100vh - 240px) !important;
+         min-height: 420px;
     }
      .boxzilla .boxzilla-close-icon, .boxzilla .boxzilla-close {
          top: 12px !important;
