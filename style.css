@@ -158,9 +158,6 @@ Author:             svenk
 /* Iframe-Scrollbarkeit erzwingen */
  .boxzilla .vz-modal__form iframe {
      width: 100% !important;
-     height: auto !important;
-     max-height: none !important;
-     min-height: 0;
      border: 0 !important;
      display: block !important;
 }
@@ -223,11 +220,6 @@ Author:             svenk
          min-height: 0;
          overflow: visible;
      }
-     .boxzilla .vz-modal__form iframe {
-         height: auto !important;
-         max-height: none !important;
-         min-height: 0;
-    }
      .boxzilla .boxzilla-close-icon, .boxzilla .boxzilla-close {
          top: 12px !important;
          right: 12px !important;
