@@ -1,6 +1,209 @@
 /*
 Theme Name:         Monogram Child
 Template:           monogram
-Author:             jkdevstudio
-Author URI:         https://themeforest.net/user/jkdevstudio
+Author:             svenk
 */
+/* ========================= BOXZILLA OVERLAY ========================= */
+ .boxzilla-overlay {
+     background: rgba(5, 6, 10, 0.78) !important;
+     backdrop-filter: blur(10px);
+     -webkit-backdrop-filter: blur(10px);
+}
+/* ========================= BOXZILLA BASIS / BREITER ========================= */
+ .boxzilla {
+     background: transparent !important;
+     border: 0 !important;
+     box-shadow: none !important;
+     padding: 0 !important;
+     width: min(1280px, calc(100vw - 40px)) !important;
+     max-width: 1280px !important;
+     max-height: 800px !important;
+}
+ .boxzilla .boxzilla-content {
+     padding: 0 !important;
+     background: transparent !important;
+}
+/* Vorhandenes Boxzilla Close-Icon */
+ .boxzilla .boxzilla-close-icon, .boxzilla .boxzilla-close {
+     top: 16px !important;
+     right: 16px !important;
+     left: auto !important;
+     bottom: auto !important;
+     transform: none !important;
+     z-index: 50 !important;
+     width: 42px !important;
+     height: 42px !important;
+     display: flex !important;
+     align-items: center !important;
+     justify-content: center !important;
+     border-radius: 999px !important;
+     background: rgba(255,255,255,0.08) !important;
+     border: 1px solid rgba(255,255,255,0.12) !important;
+     box-shadow: 0 8px 24px rgba(0,0,0,0.24) !important;
+     transition: all .2s ease !important;
+}
+ .boxzilla .boxzilla-close-icon:hover, .boxzilla .boxzilla-close:hover {
+     background: rgba(255,255,255,0.16) !important;
+     transform: scale(1.06) !important;
+}
+/* ========================= MODAL WRAPPER ========================= */
+ .boxzilla .vz-modal {
+     border-radius: 22px;
+     overflow: hidden;
+     border: 1px solid rgba(255,255,255,0.10);
+     background: linear-gradient(180deg, rgba(14,14,16,0.96), rgba(8,8,10,0.98));
+     box-shadow: 0 24px 80px rgba(0,0,0,0.52), inset 0 1px 0 rgba(255,255,255,0.04);
+     min-height: 680px;
+}
+/* ========================= GRID LAYOUT ========================= */
+ .boxzilla .vz-modal__grid {
+     display: grid;
+     grid-template-columns: minmax(420px, 46%) 1fr;
+     min-height: 680px;
+     align-items: stretch;
+}
+/* ========================= LINKE SPALTE / VISUAL ========================= */
+ .boxzilla .vz-modal__visual {
+     position: relative;
+     min-height: 100%;
+     height: 100%;
+     display: flex;
+     align-items: stretch;
+     border-right: 1px solid rgba(255,255,255,0.10);
+     background: linear-gradient(180deg, rgba(3,6,12,0.46), rgba(3,3,5,0.86)), radial-gradient(circle at 20% 18%, rgba(77,163,255,0.12), transparent 30%), radial-gradient(circle at 70% 78%, rgba(138,79,255,0.14), transparent 28%), url("https://vortige.com/wp-content/uploads/2025/12/pawel-czerwinski-H8kzolaZjIM-unsplash-scaled-1.webp") center center / cover no-repeat;
+}
+ .boxzilla .vz-modal__visual::after {
+     content: "";
+     position: absolute;
+     inset: 0;
+     background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.30)), linear-gradient(90deg, rgba(0,0,0,0.10), rgba(0,0,0,0.00));
+     pointer-events: none;
+}
+ .boxzilla .vz-modal__visual-inner {
+     position: relative;
+     z-index: 2;
+     width: 100%;
+     padding: 58px 42px 42px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+}
+/* Badge */
+ .boxzilla .vz-modal__badge {
+     display: inline-flex;
+     align-items: center;
+     width: fit-content;
+     min-height: 38px;
+     padding: 0 18px;
+     margin-bottom: 34px;
+     border-radius: 999px;
+     border: 1px solid rgba(255,255,255,0.18);
+     background: rgba(255,255,255,0.03);
+     color: #ffffff;
+     font-size: 12px;
+     font-weight: 700;
+     letter-spacing: 0.08em;
+     text-transform: uppercase;
+}
+/* Überschrift automatisch umbrechen lassen */
+ .boxzilla .vz-modal__title {
+     margin: 0 0 24px;
+     width: 100%;
+     max-width: none;
+     color: #ffffff;
+     font-size: clamp(36px, 4.4vw, 72px);
+     line-height: 0.92;
+     letter-spacing: -0.05em;
+     font-weight: 700;
+     word-break: normal;
+     overflow-wrap: break-word;
+     hyphens: auto;
+     text-wrap: balance;
+}
+/* Text */
+ .boxzilla .vz-modal__text {
+     margin: 0;
+     max-width: 100%;
+     color: rgba(255,255,255,0.82);
+     font-size: 16px;
+     line-height: 1.65;
+}
+/* ========================= RECHTE SPALTE / TRAFFT ========================= */
+ .boxzilla .vz-modal__form {
+     padding: 44px 34px 34px;
+     background: linear-gradient(180deg, rgba(16,16,18,0.92), rgba(10,10,12,0.96));
+     min-height: 680px;
+}
+/* Elementor / Wrapper neutralisieren */
+ .boxzilla .vz-modal__form .elementor, .boxzilla .vz-modal__form .elementor-widget-container, .boxzilla .vz-modal__form .e-con, .boxzilla .vz-modal__form .e-con-inner {
+     background: transparent !important;
+     padding: 0 !important;
+     margin: 0 !important;
+     border: 0 !important;
+     box-shadow: none !important;
+     max-width: 100% !important;
+     width: 100% !important;
+}
+/* Formularfelder dunkler */
+ .boxzilla .vz-modal__form input, .boxzilla .vz-modal__form textarea, .boxzilla .vz-modal__form select {
+     background: rgba(255,255,255,0.04) !important;
+     border: 1px solid rgba(255,255,255,0.10) !important;
+     color: #ffffff !important;
+     box-shadow: none !important;
+     border-radius: 12px !important;
+}
+ .boxzilla .vz-modal__form input::placeholder, .boxzilla .vz-modal__form textarea::placeholder {
+     color: rgba(255,255,255,0.42) !important;
+}
+ .boxzilla .vz-modal__form label, .boxzilla .vz-modal__form .label, .boxzilla .vz-modal__form [class*="label"], .boxzilla .vz-modal__form h3, .boxzilla .vz-modal__form h4 {
+     color: rgba(255,255,255,0.90) !important;
+}
+/* Optionaler Button-Stil für Trafft */
+ .boxzilla .vz-modal__form input[type="submit"], .boxzilla .vz-modal__form button[type="submit"], .boxzilla .vz-modal__form .trafft-button, .boxzilla .vz-modal__form [class*="submit"] {
+     background: linear-gradient(90deg, #8b4df2, #a259ff) !important;
+     color: #161616 !important;
+     border: 0 !important;
+     font-weight: 700 !important;
+     box-shadow: 0 10px 28px rgba(139,77,242,0.28) !important;
+     border-radius: 12px !important;
+}
+/* ========================= MOBILE ========================= */
+ @media (max-width: 900px) {
+     .boxzilla {
+         width: calc(100vw - 18px) !important;
+         max-width: calc(100vw - 18px) !important;
+    }
+     .boxzilla .vz-modal, .boxzilla .vz-modal__grid, .boxzilla .vz-modal__form {
+         min-height: auto;
+    }
+     .boxzilla .vz-modal__grid {
+         grid-template-columns: 1fr;
+    }
+     .boxzilla .vz-modal__visual {
+         min-height: 320px;
+         border-right: 0;
+         border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+     .boxzilla .vz-modal__visual-inner {
+         padding: 34px 22px 28px;
+         justify-content: flex-start;
+    }
+     .boxzilla .vz-modal__title {
+         font-size: clamp(30px, 9vw, 46px);
+         line-height: 0.96;
+         text-wrap: pretty;
+    }
+     .boxzilla .vz-modal__text {
+         max-width: 100%;
+         font-size: 15px;
+    }
+     .boxzilla .vz-modal__form {
+         padding: 22px 16px 18px;
+    }
+     .boxzilla .boxzilla-close-icon, .boxzilla .boxzilla-close {
+         top: 12px !important;
+         right: 12px !important;
+         width: 38px !important;
+         height: 38px !important;
+    }
+}
