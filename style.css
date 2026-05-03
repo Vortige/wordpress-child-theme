@@ -17,6 +17,7 @@ Author:             svenk
      padding: 0 !important;
      width: min(1280px, calc(100vw - 40px)) !important;
      max-width: 1280px !important;
+     height: min(860px, calc(100vh - 20px)) !important;
      max-height: calc(100vh - 20px) !important;
      overflow-y: auto !important;
      overflow-x: hidden !important;
@@ -190,6 +191,7 @@ Author:             svenk
      .boxzilla {
          width: calc(100vw - 18px) !important;
          max-width: calc(100vw - 18px) !important;
+         height: calc(100vh - 20px) !important;
          max-height: calc(100vh - 20px) !important;
     }
      .boxzilla .vz-modal, .boxzilla .vz-modal__grid {

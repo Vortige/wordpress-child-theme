@@ -23,6 +23,17 @@
         }
     }
 
+    function keepBoxCentered(box) {
+        if (!box.classList.contains('boxzilla-center')) {
+            return;
+        }
+
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        const boxHeight = box.getBoundingClientRect().height;
+        const marginTop = Math.max(10, Math.round((viewportHeight - boxHeight) / 2));
+        setImportantStyle(box, 'margin-top', `${marginTop}px`);
+    }
+
     function resetModalState(box) {
         box.scrollTop = 0;
 
@@ -49,6 +60,7 @@
 
     function enforceBoxzillaScroll(box) {
         clearLegacyInlineOverrides(box);
+        setImportantStyle(box, 'height', 'min(860px, calc(100vh - 20px))');
         setImportantStyle(box, 'max-height', 'calc(100vh - 20px)');
         setImportantStyle(box, 'overflow-y', 'auto');
         setImportantStyle(box, 'overflow-x', 'hidden');
@@ -98,6 +110,8 @@
                 iframe.style.removeProperty('min-height');
             }
         });
+
+        keepBoxCentered(box);
     }
 
     function applyFix() {
