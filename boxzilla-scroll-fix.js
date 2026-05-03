@@ -1,5 +1,6 @@
 ﻿(function () {
     const BOX_SELECTOR = '.boxzilla';
+    const visibilityState = new WeakMap();
 
     function isVisible(element) {
         if (!element) {
@@ -14,8 +15,40 @@
         element.style.setProperty(property, value, 'important');
     }
 
+    function clearLegacyInlineOverrides(box) {
+        const marginTopValue = box.style.getPropertyValue('margin-top').trim();
+        const marginTopPriority = box.style.getPropertyPriority('margin-top');
+        if (marginTopPriority === 'important' && marginTopValue === '10px') {
+            box.style.removeProperty('margin-top');
+        }
+    }
+
+    function resetModalState(box) {
+        box.scrollTop = 0;
+
+        const resetScrollSelectors = ['.boxzilla-content', '.vz-modal', '.vz-modal__form'];
+        resetScrollSelectors.forEach((selector) => {
+            const node = box.querySelector(selector);
+            if (node) {
+                node.scrollTop = 0;
+            }
+        });
+
+        box.querySelectorAll('.embedded-booking').forEach((node) => {
+            node.style.removeProperty('height');
+            node.style.removeProperty('max-height');
+            node.style.removeProperty('min-height');
+        });
+
+        box.querySelectorAll('iframe').forEach((iframe) => {
+            iframe.style.removeProperty('height');
+            iframe.style.removeProperty('max-height');
+            iframe.style.removeProperty('min-height');
+        });
+    }
+
     function enforceBoxzillaScroll(box) {
-        setImportantStyle(box, 'margin-top', '10px');
+        clearLegacyInlineOverrides(box);
         setImportantStyle(box, 'max-height', 'calc(100vh - 20px)');
         setImportantStyle(box, 'overflow-y', 'auto');
         setImportantStyle(box, 'overflow-x', 'hidden');
@@ -69,9 +102,20 @@
 
     function applyFix() {
         document.querySelectorAll(BOX_SELECTOR).forEach((box) => {
-            if (isVisible(box)) {
+            const visible = isVisible(box);
+            const wasVisible = visibilityState.get(box) === true;
+
+            if (visible) {
+                if (!wasVisible) {
+                    resetModalState(box);
+                }
+
                 enforceBoxzillaScroll(box);
+                visibilityState.set(box, true);
+                return;
             }
+
+            visibilityState.set(box, false);
         });
     }
 

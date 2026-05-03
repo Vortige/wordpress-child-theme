@@ -95,8 +95,9 @@ Author:             svenk
      padding: 58px 42px 42px;
      display: flex;
      flex-direction: column;
-     justify-content: center;
-}
+     justify-content: flex-start;
+     align-items: flex-start;
+ }
 /* Badge */
  .boxzilla .vz-modal__badge {
      display: inline-flex;
