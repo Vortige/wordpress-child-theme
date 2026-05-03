@@ -17,14 +17,16 @@ Author:             svenk
      padding: 0 !important;
      width: min(1280px, calc(100vw - 40px)) !important;
      max-width: 1280px !important;
-     max-height: min(800px, calc(100vh - 20px)) !important;
+     max-height: calc(100vh - 20px) !important;
      overflow-y: auto !important;
+     overflow-x: hidden !important;
      -webkit-overflow-scrolling: touch;
 }
  .boxzilla .boxzilla-content {
      padding: 0 !important;
      background: transparent !important;
-     max-height: inherit;
+     max-height: none;
+     overflow: visible !important;
 }
 /* Vorhandenes Boxzilla Close-Icon */
  .boxzilla .boxzilla-close-icon, .boxzilla .boxzilla-close {
@@ -52,20 +54,19 @@ Author:             svenk
 /* ========================= MODAL WRAPPER ========================= */
  .boxzilla .vz-modal {
      border-radius: 22px;
-     max-height: inherit;
-     overflow-y: auto;
-     -webkit-overflow-scrolling: touch;
+     max-height: none;
+     overflow: visible;
      border: 1px solid rgba(255,255,255,0.10);
      background: linear-gradient(180deg, rgba(14,14,16,0.96), rgba(8,8,10,0.98));
      box-shadow: 0 24px 80px rgba(0,0,0,0.52), inset 0 1px 0 rgba(255,255,255,0.04);
-     min-height: 680px;
+     min-height: 0;
 }
 /* ========================= GRID LAYOUT ========================= */
  .boxzilla .vz-modal__grid {
      display: grid;
      grid-template-columns: minmax(420px, 46%) 1fr;
-     height: 100%;
-     min-height: 680px;
+     height: auto;
+     min-height: 0;
      align-items: stretch;
 }
 /* ========================= LINKE SPALTE / VISUAL ========================= */
@@ -138,10 +139,9 @@ Author:             svenk
  .boxzilla .vz-modal__form {
      padding: 44px 34px 34px;
      background: linear-gradient(180deg, rgba(16,16,18,0.92), rgba(10,10,12,0.96));
-     max-height: inherit;
      min-height: 0;
-     overflow-y: auto;
-     -webkit-overflow-scrolling: touch;
+     max-height: none;
+     overflow: visible;
 }
 /* Elementor / Wrapper neutralisieren */
  .boxzilla .vz-modal__form .elementor, .boxzilla .vz-modal__form .elementor-widget-container, .boxzilla .vz-modal__form .e-con, .boxzilla .vz-modal__form .e-con-inner {
@@ -219,7 +219,7 @@ Author:             svenk
      .boxzilla .vz-modal__form {
          padding: 22px 16px 18px;
          min-height: 0;
-         overflow-y: auto;
+         overflow: visible;
      }
      .boxzilla .vz-modal__form iframe {
          height: auto !important;
