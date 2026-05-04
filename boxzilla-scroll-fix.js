@@ -1,6 +1,5 @@
 ﻿(function () {
     const BOX_SELECTOR = '#boxzilla-4471';
-    const CENTER_OFFSET = 16;
     const visibilityState = new WeakMap();
 
     function isVisible(element) {
@@ -22,17 +21,6 @@
         if (marginTopPriority === 'important' && marginTopValue === '10px') {
             box.style.removeProperty('margin-top');
         }
-    }
-
-    function keepBoxCentered(box) {
-        if (!box.classList.contains('boxzilla-center')) {
-            return;
-        }
-
-        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-        const boxHeight = box.getBoundingClientRect().height;
-        const marginTop = Math.max(0, Math.round((viewportHeight - boxHeight) / 2) - CENTER_OFFSET);
-        setImportantStyle(box, 'margin-top', `${marginTop}px`);
     }
 
     function resetModalState(box) {
@@ -66,7 +54,7 @@
         const selectors = [
             { selector: '.vz-modal', overflow: 'hidden', borderRadius: '18px' },
             { selector: '.vz-modal__grid', overflow: 'visible' },
-            { selector: '.vz-modal__form', overflow: 'visible' }
+            { selector: '.vz-modal__form', overflow: 'auto' }
         ];
 
         selectors.forEach(({ selector, overflow, borderRadius }) => {
@@ -82,6 +70,12 @@
 
             if (borderRadius) {
                 setImportantStyle(node, 'border-radius', borderRadius);
+            }
+
+            if (selector === '.vz-modal__form') {
+                setImportantStyle(node, 'overflow-y', 'auto');
+                setImportantStyle(node, 'overflow-x', 'hidden');
+                node.style.setProperty('-webkit-overflow-scrolling', 'touch');
             }
         });
 
@@ -109,7 +103,6 @@
             }
         });
 
-        keepBoxCentered(box);
     }
 
     function applyFix() {
