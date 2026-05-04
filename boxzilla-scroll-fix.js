@@ -49,6 +49,26 @@
         });
     }
 
+    function resetDynamicEmbedSize(box) {
+        box.querySelectorAll('.embedded-booking').forEach((node) => {
+            ['height', 'max-height', 'min-height'].forEach((property) => {
+                const value = node.style.getPropertyValue(property).trim();
+                if (/^\d+(?:\.\d+)?px$/i.test(value) || value === 'auto' || value === 'none' || value === 'unset') {
+                    node.style.removeProperty(property);
+                }
+            });
+        });
+
+        box.querySelectorAll('iframe').forEach((iframe) => {
+            ['height', 'max-height', 'min-height'].forEach((property) => {
+                const value = iframe.style.getPropertyValue(property).trim();
+                if (/^\d+(?:\.\d+)?px$/i.test(value) || value === 'auto' || value === 'none' || value === 'unset') {
+                    iframe.style.removeProperty(property);
+                }
+            });
+        });
+    }
+
     function enforceBoxzillaScroll(box) {
         clearLegacyInlineOverrides(box);
         setImportantStyle(box, 'height', 'min(860px, calc(100vh - 20px))');
@@ -135,6 +155,10 @@
                 enforceBoxzillaScroll(box);
                 visibilityState.set(box, true);
                 return;
+            }
+
+            if (wasVisible) {
+                resetDynamicEmbedSize(box);
             }
 
             visibilityState.set(box, false);
