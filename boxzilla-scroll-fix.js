@@ -45,18 +45,6 @@
                 node.scrollTop = 0;
             }
         });
-
-        box.querySelectorAll('.embedded-booking').forEach((node) => {
-            node.style.removeProperty('height');
-            node.style.removeProperty('max-height');
-            node.style.removeProperty('min-height');
-        });
-
-        box.querySelectorAll('iframe').forEach((iframe) => {
-            iframe.style.removeProperty('height');
-            iframe.style.removeProperty('max-height');
-            iframe.style.removeProperty('min-height');
-        });
     }
 
     function enforceBoxzillaScroll(box) {
@@ -76,12 +64,12 @@
         }
 
         const selectors = [
-            { selector: '.vz-modal', overflow: 'hidden' },
+            { selector: '.vz-modal', overflow: 'hidden', borderRadius: '18px' },
             { selector: '.vz-modal__grid', overflow: 'visible' },
             { selector: '.vz-modal__form', overflow: 'visible' }
         ];
 
-        selectors.forEach(({ selector, overflow }) => {
+        selectors.forEach(({ selector, overflow, borderRadius }) => {
             const node = box.querySelector(selector);
             if (!node) {
                 return;
@@ -91,6 +79,10 @@
             setImportantStyle(node, 'min-height', '0');
             setImportantStyle(node, 'height', 'auto');
             setImportantStyle(node, 'overflow', overflow);
+
+            if (borderRadius) {
+                setImportantStyle(node, 'border-radius', borderRadius);
+            }
         });
 
         box.querySelectorAll('iframe').forEach((iframe) => {
