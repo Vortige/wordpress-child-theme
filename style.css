@@ -173,6 +173,7 @@ Author:             svenk
      width: 100% !important;
      border: 0 !important;
      display: block !important;
+     min-height: 500px !important;
 }
 /* Formularfelder dunkler */
  #boxzilla-4471 .vz-modal__form input, #boxzilla-4471 .vz-modal__form textarea, #boxzilla-4471 .vz-modal__form select {

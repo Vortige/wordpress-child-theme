@@ -2,6 +2,7 @@
     const BOX_SELECTOR = '#boxzilla-4471';
     const BOX_MAX_HEIGHT = 860;
     const BOX_VIEWPORT_GAP = 20;
+    const EMBED_BASE_MIN_HEIGHT = 500;
     const visibilityState = new WeakMap();
 
     function isVisible(element) {
@@ -57,6 +58,10 @@
                     node.style.removeProperty(property);
                 }
             });
+
+            setImportantStyle(node, 'height', 'auto');
+            setImportantStyle(node, 'max-height', 'none');
+            setImportantStyle(node, 'min-height', '0');
         });
 
         box.querySelectorAll('iframe').forEach((iframe) => {
@@ -66,6 +71,8 @@
                     iframe.style.removeProperty(property);
                 }
             });
+
+            setImportantStyle(iframe, 'min-height', `${EMBED_BASE_MIN_HEIGHT}px`);
         });
     }
 
@@ -118,6 +125,7 @@
         box.querySelectorAll('iframe').forEach((iframe) => {
             setImportantStyle(iframe, 'display', 'block');
             setImportantStyle(iframe, 'width', '100%');
+            setImportantStyle(iframe, 'min-height', `${EMBED_BASE_MIN_HEIGHT}px`);
             iframe.setAttribute('scrolling', 'yes');
 
             const heightValue = iframe.style.getPropertyValue('height').trim();
@@ -132,11 +140,6 @@
                 iframe.style.removeProperty('max-height');
             }
 
-            const minHeightValue = iframe.style.getPropertyValue('min-height').trim();
-            const minHeightPriority = iframe.style.getPropertyPriority('min-height');
-            if (minHeightPriority === 'important' && (minHeightValue === '0' || minHeightValue === '0px')) {
-                iframe.style.removeProperty('min-height');
-            }
         });
 
     }
