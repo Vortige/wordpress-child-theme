@@ -53,7 +53,8 @@
         clearLegacyInlineOverrides(box);
         setImportantStyle(box, 'height', 'min(860px, calc(100vh - 20px))');
         setImportantStyle(box, 'max-height', 'calc(100vh - 20px)');
-        setImportantStyle(box, 'overflow', 'hidden');
+        setImportantStyle(box, 'overflow-y', 'auto');
+        setImportantStyle(box, 'overflow-x', 'hidden');
         setImportantStyle(box, 'border-radius', '18px');
         box.style.setProperty('-webkit-overflow-scrolling', 'touch');
         box.style.setProperty('overscroll-behavior', 'contain');
@@ -61,42 +62,36 @@
 
         const boxContent = box.querySelector('.boxzilla-content');
         if (boxContent) {
-            setImportantStyle(boxContent, 'height', '100%');
-            setImportantStyle(boxContent, 'max-height', '100%');
-            setImportantStyle(boxContent, 'overflow', 'hidden');
+            setImportantStyle(boxContent, 'height', 'auto');
+            setImportantStyle(boxContent, 'max-height', 'none');
+            setImportantStyle(boxContent, 'overflow', 'visible');
         }
 
         box.querySelectorAll('.embedded-booking').forEach((node) => {
-            setImportantStyle(node, 'height', '100%');
-            setImportantStyle(node, 'max-height', '100%');
+            setImportantStyle(node, 'height', 'auto');
+            setImportantStyle(node, 'max-height', 'none');
             setImportantStyle(node, 'min-height', '0');
         });
 
         const selectors = [
-            { selector: '.vz-modal', overflow: 'hidden', borderRadius: '18px', height: '100%', maxHeight: '100%' },
-            { selector: '.vz-modal__grid', overflow: 'hidden', height: '100%', maxHeight: '100%' },
-            { selector: '.vz-modal__form', overflow: 'auto', height: '100%', maxHeight: '100%' }
+            { selector: '.vz-modal', overflow: 'hidden', borderRadius: '18px', height: 'auto', maxHeight: 'none', minHeight: '100%' },
+            { selector: '.vz-modal__grid', overflow: 'visible', height: 'auto', maxHeight: 'none', minHeight: '100%' },
+            { selector: '.vz-modal__form', overflow: 'visible', height: 'auto', maxHeight: 'none', minHeight: '0' }
         ];
 
-        selectors.forEach(({ selector, overflow, borderRadius, height, maxHeight }) => {
+        selectors.forEach(({ selector, overflow, borderRadius, height, maxHeight, minHeight }) => {
             const node = box.querySelector(selector);
             if (!node) {
                 return;
             }
 
             setImportantStyle(node, 'max-height', maxHeight || 'none');
-            setImportantStyle(node, 'min-height', '0');
+            setImportantStyle(node, 'min-height', minHeight || '0');
             setImportantStyle(node, 'height', height || 'auto');
             setImportantStyle(node, 'overflow', overflow);
 
             if (borderRadius) {
                 setImportantStyle(node, 'border-radius', borderRadius);
-            }
-
-            if (selector === '.vz-modal__form') {
-                setImportantStyle(node, 'overflow-y', 'auto');
-                setImportantStyle(node, 'overflow-x', 'hidden');
-                node.style.setProperty('-webkit-overflow-scrolling', 'touch');
             }
         });
 
