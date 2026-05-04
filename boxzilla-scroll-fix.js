@@ -1,5 +1,6 @@
 ﻿(function () {
-    const BOX_SELECTOR = '.boxzilla';
+    const BOX_SELECTOR = '#boxzilla-4471';
+    const CENTER_OFFSET = 16;
     const visibilityState = new WeakMap();
 
     function isVisible(element) {
@@ -30,7 +31,7 @@
 
         const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
         const boxHeight = box.getBoundingClientRect().height;
-        const marginTop = Math.max(10, Math.round((viewportHeight - boxHeight) / 2));
+        const marginTop = Math.max(0, Math.round((viewportHeight - boxHeight) / 2) - CENTER_OFFSET);
         setImportantStyle(box, 'margin-top', `${marginTop}px`);
     }
 
@@ -74,8 +75,13 @@
             setImportantStyle(boxContent, 'overflow', 'visible');
         }
 
-        const selectors = ['.vz-modal', '.vz-modal__grid', '.vz-modal__form'];
-        selectors.forEach((selector) => {
+        const selectors = [
+            { selector: '.vz-modal', overflow: 'hidden' },
+            { selector: '.vz-modal__grid', overflow: 'visible' },
+            { selector: '.vz-modal__form', overflow: 'visible' }
+        ];
+
+        selectors.forEach(({ selector, overflow }) => {
             const node = box.querySelector(selector);
             if (!node) {
                 return;
@@ -84,7 +90,7 @@
             setImportantStyle(node, 'max-height', 'none');
             setImportantStyle(node, 'min-height', '0');
             setImportantStyle(node, 'height', 'auto');
-            setImportantStyle(node, 'overflow', 'visible');
+            setImportantStyle(node, 'overflow', overflow);
         });
 
         box.querySelectorAll('iframe').forEach((iframe) => {
