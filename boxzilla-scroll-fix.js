@@ -1,5 +1,7 @@
 ﻿(function () {
     const BOX_SELECTOR = '#boxzilla-4471';
+    const BOX_MAX_HEIGHT = 860;
+    const BOX_VIEWPORT_GAP = 20;
     const visibilityState = new WeakMap();
 
     function isVisible(element) {
@@ -18,9 +20,21 @@
     function clearLegacyInlineOverrides(box) {
         const marginTopValue = box.style.getPropertyValue('margin-top').trim();
         const marginTopPriority = box.style.getPropertyPriority('margin-top');
-        if (marginTopPriority === 'important' && marginTopValue === '10px') {
+        if ((marginTopPriority === 'important' || marginTopPriority === '') && (marginTopValue === '10px' || marginTopValue === '-16px')) {
             box.style.removeProperty('margin-top');
         }
+    }
+
+    function keepBoxCentered(box) {
+        if (!box.classList.contains('boxzilla-center')) {
+            return;
+        }
+
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        const targetHeight = Math.min(BOX_MAX_HEIGHT, Math.max(0, viewportHeight - BOX_VIEWPORT_GAP));
+        const marginTop = Math.max(0, Math.round((viewportHeight - targetHeight) / 2));
+
+        setImportantStyle(box, 'margin-top', `${marginTop}px`);
     }
 
     function resetModalState(box) {
@@ -39,33 +53,40 @@
         clearLegacyInlineOverrides(box);
         setImportantStyle(box, 'height', 'min(860px, calc(100vh - 20px))');
         setImportantStyle(box, 'max-height', 'calc(100vh - 20px)');
-        setImportantStyle(box, 'overflow-y', 'auto');
-        setImportantStyle(box, 'overflow-x', 'hidden');
+        setImportantStyle(box, 'overflow', 'hidden');
+        setImportantStyle(box, 'border-radius', '18px');
         box.style.setProperty('-webkit-overflow-scrolling', 'touch');
         box.style.setProperty('overscroll-behavior', 'contain');
         box.style.setProperty('touch-action', 'pan-y');
 
         const boxContent = box.querySelector('.boxzilla-content');
         if (boxContent) {
-            setImportantStyle(boxContent, 'max-height', 'none');
-            setImportantStyle(boxContent, 'overflow', 'visible');
+            setImportantStyle(boxContent, 'height', '100%');
+            setImportantStyle(boxContent, 'max-height', '100%');
+            setImportantStyle(boxContent, 'overflow', 'hidden');
         }
 
+        box.querySelectorAll('.embedded-booking').forEach((node) => {
+            setImportantStyle(node, 'height', '100%');
+            setImportantStyle(node, 'max-height', '100%');
+            setImportantStyle(node, 'min-height', '0');
+        });
+
         const selectors = [
-            { selector: '.vz-modal', overflow: 'hidden', borderRadius: '18px' },
-            { selector: '.vz-modal__grid', overflow: 'visible' },
-            { selector: '.vz-modal__form', overflow: 'auto' }
+            { selector: '.vz-modal', overflow: 'hidden', borderRadius: '18px', height: '100%', maxHeight: '100%' },
+            { selector: '.vz-modal__grid', overflow: 'hidden', height: '100%', maxHeight: '100%' },
+            { selector: '.vz-modal__form', overflow: 'auto', height: '100%', maxHeight: '100%' }
         ];
 
-        selectors.forEach(({ selector, overflow, borderRadius }) => {
+        selectors.forEach(({ selector, overflow, borderRadius, height, maxHeight }) => {
             const node = box.querySelector(selector);
             if (!node) {
                 return;
             }
 
-            setImportantStyle(node, 'max-height', 'none');
+            setImportantStyle(node, 'max-height', maxHeight || 'none');
             setImportantStyle(node, 'min-height', '0');
-            setImportantStyle(node, 'height', 'auto');
+            setImportantStyle(node, 'height', height || 'auto');
             setImportantStyle(node, 'overflow', overflow);
 
             if (borderRadius) {
@@ -115,6 +136,7 @@
                     resetModalState(box);
                 }
 
+                keepBoxCentered(box);
                 enforceBoxzillaScroll(box);
                 visibilityState.set(box, true);
                 return;
